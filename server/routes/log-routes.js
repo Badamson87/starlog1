@@ -4,9 +4,24 @@ let Users = require('../models/user')
 let Logs = require('../models/log')
 let Comments = require('../models/comment')
 
+//get all
 router.get('/', (req, res, next) => {
   Logs.find({})
     .then(log => res.send(log))
+    .catch(next)
+})
+
+//get log by id
+router.get('/:id/comments', (req, res, next) => {
+  Logs.findById(req.params.id)
+    .then(log => {
+      Comments.find({ logId: log._id })
+        .then(comments => {
+          return res.send({ log, comments })
+        })
+    })
+    //will have to find comments who's logId == log._id and assign return array
+
     .catch(next)
 })
 

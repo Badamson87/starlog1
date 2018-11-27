@@ -9,7 +9,7 @@ let name = "User"
 let schema = new Schema({
   email: { type: String, required: true, unique: true },
   hash: { type: String, required: true },
-  shipId: { type: ObjectId, ref: 'Ship' }
+  shipId: { type: ObjectId, ref: 'Ship' },
 })
 
 //Hashes a password (used when password created/changed)

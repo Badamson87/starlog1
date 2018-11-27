@@ -9,9 +9,10 @@ let Comments = require('../models/comment')
 //     .catch(next)
 // })
 
+
 //VIEW ALL COMMENTS BY ID
-router.get('/:id', (req, res, next) => {
-  Comments.findById(req.params.id)
+router.get('/', (req, res, next) => {
+  Comments.find({})
     .then(comment => res.send(comment))
     .catch(next)
 })
