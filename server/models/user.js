@@ -10,6 +10,8 @@ let schema = new Schema({
   email: { type: String, required: true, unique: true },
   hash: { type: String, required: true },
   shipId: { type: ObjectId, ref: 'Ship' },
+  name: { type: String, required: true },
+  rank: { type: String, enum: ['Captain', 'Commander', 'Lieutenant Commander', 'Lieutenant', 'Lieutenant Junior Grade', 'Ensign'], default: 'Ensign', required: true }
 })
 
 //Hashes a password (used when password created/changed)

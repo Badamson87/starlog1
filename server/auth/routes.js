@@ -10,6 +10,8 @@ router.post('/login', (req, res, next) => {
     if (!user.validatePassword(req.body.password)) { return next(new Error("Invalid username or password")) }
     delete user._doc.hash
     req.session.uid = user._id
+    req.session.userRank = user.rank
+    res.send(user)
   })
     .catch(next)
 })
@@ -22,6 +24,7 @@ router.post('/register', (req, res, next) => {
     .then(user => {
       delete user._doc.hash
       req.session.uid = user._id
+      req.session.userRank = user.rank
       res.send(user)
     })
     .catch(err => {

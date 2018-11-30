@@ -1,18 +1,48 @@
 // @ts-ignore
 let _logApi = axios.create({
-  baseURL: "localhost:3000/api/logs"
+  baseURL: '/api/logs',
+  withCredentials: true
 })
 
 let _logs = []
-let logkey = "/logs"
-export default class LogService {
-  constructor() {
-    console.log('log service working')
-    console.log()
 
+
+export default class LogService {
+
+  addLog(log, draw) {
+    _logApi.post("", log)
+      .then(res => {
+        draw()
+      })
+      .catch(err => {
+        console.error(err)
+      })
   }
-  getLogs() {
-    _log.get()
+
+  getLogs(draw) {
+    console.log('getting logs')
+    _logApi.get('')
+      .then((res) => {
+        draw(res.data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+  createLog(log, getLogsCallback) {
+    _logApi.post('', log)
+      .then(function (res) {
+        getLogsCallback()
+      }
+      ).catch(err => {
+        console.error(err)
+      })
+  }
+  deleteLog(id, getLogsCallback) {
+    _logApi.delete(id)
+      .then(res => {
+        getLogsCallback()
+      })
   }
 }
 

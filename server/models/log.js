@@ -10,6 +10,7 @@ let schema = new Schema({
   date: { type: String },
   shipId: { type: ObjectId, ref: "Ship" },
   userId: { type: ObjectId, ref: "User" },
+  authorRank: { type: String },
   comments: [{ type: ObjectId, ref: "Comment" }]
 })
 

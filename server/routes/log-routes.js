@@ -4,10 +4,21 @@ let Users = require('../models/user')
 let Logs = require('../models/log')
 let Comments = require('../models/comment')
 
+let ranks = ['Captain', 'Commander', 'Lieutenant Commander', 'Lieutenant', 'Lieutenant Junior Grade', 'Ensign']
+
+
+
 //get all
 router.get('/', (req, res, next) => {
   Logs.find({})
-    .then(log => res.send(log))
+    .then(logs => {
+      let newLogs = logs.filter(log => {
+        return ranks.indexOf(req.session.userRank) <= ranks.indexOf(log.authorRank)
+      })
+
+      res.send(newLogs)
+
+    })
     .catch(next)
 })
 
